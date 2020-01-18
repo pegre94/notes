@@ -1,14 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Editor from 'src/components/Tools/Editor.vue';
-// import svgSpriteLoader from 'src/helpers/svg-sprite-loader.js';
 import routes from './routes';
 
-// const __svg__ = {
-//   path: "./assets/images/icons/*.svg",
-//   name: "assets/images/[hash].sprite.svg"
-// };
-// svgSpriteLoader(__svg__.filename);
 Vue.use(VueRouter)
 
 /*

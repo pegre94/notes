@@ -1,157 +1,120 @@
 <template>
   <div class="editor">
-    <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
-      <div class="menubar">
-        <span v-for="actionName in activeButtons" :key="actionName">
-          <button
-            v-if="actionName === 'bold'"
+    <div class="toolbox">
+      <editor-menu-bar :editor="editor">
+        <div slot-scope="{ commands, isActive }">
+          <!-- <button
             class="menubar__button"
             :class="{ 'is-active': isActive.bold() }"
             @click="commands.bold"
           >
-            <icon name="bold" />
+            <q-icon name="src/statics/icons_editor/bold.svg" />
           </button>
+
           <button
-            v-if="actionName === 'italic'"
             class="menubar__button"
             :class="{ 'is-active': isActive.italic() }"
             @click="commands.italic"
           >
-            <icon name="italic" />
+            <q-icon name="src/statics/icons_editor/italic.svg" />
           </button>
 
           <button
-            v-if="actionName === 'strike'"
             class="menubar__button"
             :class="{ 'is-active': isActive.strike() }"
             @click="commands.strike"
           >
-            <icon name="strike" />
+            <q-icon name="src/statics/icons_editor/strike.svg" />
           </button>
 
           <button
-            v-if="actionName === 'underline'"
             class="menubar__button"
             :class="{ 'is-active': isActive.underline() }"
             @click="commands.underline"
           >
-            <icon name="underline" />
+            <q-icon name="src/statics/icons_editor/underline.svg" />
           </button>
 
           <button
-            v-if="actionName === 'code'"
             class="menubar__button"
             :class="{ 'is-active': isActive.code() }"
             @click="commands.code"
           >
-            <icon name="code" />
+            <q-icon name="code" />
           </button>
 
           <button
-            v-if="actionName === 'paragraph'"
             class="menubar__button"
             :class="{ 'is-active': isActive.paragraph() }"
             @click="commands.paragraph"
           >
-            <icon name="paragraph" />
+            <q-icon name="src/statics/icons_editor/paragraph.svg" />
           </button>
 
           <button
-            v-if="actionName === 'h1'"
             class="menubar__button"
             :class="{ 'is-active': isActive.heading({ level: 1 }) }"
             @click="commands.heading({ level: 1 })"
-          >
-            H1
-          </button>
+          >H1</button>
 
           <button
-            v-if="actionName === 'h2'"
             class="menubar__button"
             :class="{ 'is-active': isActive.heading({ level: 2 }) }"
             @click="commands.heading({ level: 2 })"
-          >
-            H2
-          </button>
+          >H2</button>
 
           <button
-            v-if="actionName === 'h3'"
             class="menubar__button"
             :class="{ 'is-active': isActive.heading({ level: 3 }) }"
             @click="commands.heading({ level: 3 })"
-          >
-            H3
-          </button>
+          >H3</button>
 
           <button
-            v-if="actionName === 'bullet_list'"
             class="menubar__button"
             :class="{ 'is-active': isActive.bullet_list() }"
             @click="commands.bullet_list"
           >
-            <icon name="ul" />
+            <q-icon name="src/statics/icons_editor/ul.svg" />
           </button>
 
           <button
-            v-if="actionName === 'ordered_list'"
             class="menubar__button"
             :class="{ 'is-active': isActive.ordered_list() }"
             @click="commands.ordered_list"
           >
-            <icon name="ol" />
+            <q-icon name="src/statics/icons_editor/ol.svg" />
           </button>
 
           <button
-            v-if="actionName === 'blockquote'"
             class="menubar__button"
             :class="{ 'is-active': isActive.blockquote() }"
             @click="commands.blockquote"
           >
-            <icon name="quote" />
+            <q-icon name="src/statics/icons_editor/quote.svg" />
           </button>
 
           <button
-            v-if="actionName === 'code_block'"
             class="menubar__button"
             :class="{ 'is-active': isActive.code_block() }"
             @click="commands.code_block"
           >
-            <icon name="code" />
-          </button>
+            <q-icon name="src/statics/icons_editor/code.svg" />
+          </button>-->
+          <q-btn flat color="primary" icon="horizontal-line" @click="commands.hr"></q-btn>
+          <!-- <button class="menubar__button" @click="commands.horizontal_rule">
+            <q-icon name="src/statics/icons_editor/hr.svg" />
+          </button>-->
+          <q-btn flat color="primary" icon="undo" @click="commands.undo"></q-btn>
 
-          <button
-            v-if="actionName === 'horizontal_rule'"
-            class="menubar__button"
-            @click="commands.horizontal_rule"
-          >
-            <icon name="hr" />
-          </button>
-
-          <button
-            v-if="actionName === 'undo'"
-            class="menubar__button"
-            @click="commands.undo"
-          >
-            <icon name="undo" />
-          </button>
-
-          <button
-            v-if="actionName === 'redo'"
-            class="menubar__button"
-            @click="commands.redo"
-          >
-            <icon name="redo" />
-          </button>
-        </span>
-      </div>
-    </editor-menu-bar>
-
+          <q-btn flat color="primary" icon="redo" @click="commands.redo"></q-btn>
+        </div>
+      </editor-menu-bar>
+    </div>
     <editor-content class="editor__content" :editor="editor" />
   </div>
 </template>
 
 <script>
-import Icon from './Icon.vue';
 import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
 import {
   Blockquote,
@@ -176,46 +139,13 @@ export default {
   name: 'editor',
   components: {
     EditorContent,
-    EditorMenuBar,
-    Icon
+    EditorMenuBar
   },
   props: {
     initialContent: {
       type: String,
       required: true,
       default: '<em>editable text</em>'
-    },
-    activeButtons: {
-      type: Array,
-      validator: function (list) {
-        for (let el of list) {
-          // The value must match one of these strings
-          if (
-            [
-              'bold',
-              'italic',
-              'strike',
-              'underline',
-              'code',
-              'paragraph',
-              'h1',
-              'h2',
-              'h3',
-              'bullet_list',
-              'ordered_list',
-              'blockquote',
-              'code_block',
-              'horizontal_rule',
-              'undo',
-              'redo'
-            ].indexOf(el) === -1
-          ) {
-            return -1
-          }
-        }
-        return 1
-      },
-      default: ['bold', 'italic']
     }
   },
   data () {
@@ -261,4 +191,12 @@ export default {
 }
 </script>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.toolbox {
+  background-color: #222;
+  height: 50px;
+}
+.q-btn >>> .q-icon {
+  color: white;
+}
+</style>
