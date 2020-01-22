@@ -1,8 +1,8 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from 'vue'
+import Vuex from 'vuex'
 
-import notes from './store-notes';
-import editor from './editor';
+import notes from './store-notes'
+import editor from './editor'
 
 Vue.use(Vuex)
 
@@ -14,12 +14,25 @@ Vue.use(Vuex)
  * async/await or return a Promise which resolves
  * with the Store instance.
  */
+Vue.filter('stripHtml', function (value) {
+  var div = document.createElement('div')
+  div.innerHTML = value
+  var text = div.textContent || div.innerText || ''
+  return text
+})
 
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       notes,
       editor
+    },
+    actions: {
+      addAndEditNote ({ commit }) {
+        let payload = notes.actions.addNote({ commit })
+        commit('notes/addNote', payload)
+        commit('editor/setCurrentNote', payload)
+      }
     },
 
     // enable strict mode (adds overhead!)

@@ -1,68 +1,70 @@
 <template>
-  <div class="q-px-lg">
-    <q-input borderless v-model="text" placeholder="Note name:" />
-    <div class="q-mt-md">
-      <editor
-        @update="test"
-        initialContent="
-          <h2>
-            Hi there,
-          </h2>
-          <p>
-            this is a very <em>basic</em> example of tiptap.
-          </p>
-          <pre><code>body { display: none; }</code></pre>
-          <ul>
-            <li>
-              A regular list
-            </li>
-            <li>
-              With regular items
-            </li>
-          </ul>
-          <blockquote>
-            It's amazing 👏
-            <br />
-            – mom
-          </blockquote>"
-        v-bind:activeButtons="[
-          'bold',
-          'italic',
-          'strike',
-          'underline',
-          'code',
-          'paragraph',
-          'h1',
-          'h2',
-          'h3',
-          'bullet_list',
-          'ordered_list',
-          'blockquote',
-          'code_block',
-          'horizontal_rule',
-          'undo',
-          'redo'
-        ]"
-      ></editor>
-    </div>
+  <div class="q-pb-sm q-pl-lg q-pr-md">
+    <q-input class="q-pl-sm q-pt-md" borderless v-model="nameField" placeholder="Note name:" />
+    <div class="q-mt-md"></div>
+    <q-editor
+      v-model="editorContentField"
+      min-height="5rem"
+      flat
+      :definitions="{
+        save: {
+          tip: 'Save your work',
+          icon: 'save',
+          label: 'Save',
+          handler: saveWork
+        },
+      }"
+      :toolbar="[
+        ['bold', 'italic', 'strike', 'underline'],
+        ['upload', 'save']
+      ]"
+    />
   </div>
 </template>
 
 <script>
+import { mapState, mapActions, mapGetters } from 'vuex'
 export default {
-  components: {
-    editor: require('components/Tools/Editor.vue').default
-  },
   data () {
-    return {
-      text: ''
-    }
+    return {}
+  },
+  getters: {
+    ...mapGetters('editor', ['getCurrentNote'])
   },
 
+  computed: {
+    ...mapState('editor', ['currentNote']),
+    nameField: {
+      get () {
+        return this.currentNote.note.name
+      },
+      set (newValue) {
+        console.log(newValue)
+        this.setName(newValue)
+      }
+    },
+    editorContentField: {
+      get () {
+        return this.currentNote.note.content
+      },
+      set (newValue) {
+        this.setEditorContent(newValue)
+      }
+    }
+  },
   methods: {
-    test (something) {
-      console.log(something)
+    ...mapActions('editor', ['setName', 'setEditorContent']),
+    ...mapActions('notes', ['updateNote']),
+    saveWork () {
+      console.log('saveWork', this.currentNote)
+      this.updateNote(this.currentNote)
     }
   }
 }
 </script>
+
+<style scoped>
+.q-input {
+  font-size: 1.5em;
+}
+</style>

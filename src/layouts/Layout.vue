@@ -30,6 +30,9 @@
       </div>
 
       <note></note>
+      <div class="absolute-bottom text-center q-mb-lg">
+        <q-btn @click="addAndEditNote" size="20px" round color="primary" icon="add" />
+      </div>
     </q-drawer>
 
     <q-page-container>
@@ -39,18 +42,20 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   data () {
     return {
-      leftDrawerOpen: false,
-      searchField: ''
+      leftDrawerOpen: false
     }
   },
-
+  methods: {
+    ...mapActions(['addAndEditNote'])
+  },
   components: {
     search: require('components/Tools/Search.vue').default,
     sort: require('components/Tools/Sort.vue').default,
-    note: require('components/note.vue').default
+    note: require('components/Note.vue').default
   }
 }
 </script>

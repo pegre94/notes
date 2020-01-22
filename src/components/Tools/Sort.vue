@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -23,7 +23,7 @@ export default {
         },
         {
           label: 'Edit',
-          value: 'editDate'
+          value: 'editionDate'
         },
         {
           label: 'Creation',
