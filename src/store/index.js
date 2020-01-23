@@ -29,6 +29,7 @@ export default function (/* { ssrContext } */) {
     },
     actions: {
       addAndEditNote ({ commit }) {
+        commit('notes/updateNote', editor.state.currentNote)
         let payload = notes.actions.addNote({ commit })
         commit('notes/addNote', payload)
         commit('editor/setCurrentNote', payload)

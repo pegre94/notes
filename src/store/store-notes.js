@@ -54,7 +54,6 @@ const getters = {
   notesSorted: state => {
     let notesSorted = {}
     let keysOrdered = Object.keys(state.notes)
-    console.log('notesSorted', state.notes)
     keysOrdered.sort((a, b) => {
       let noteAProp = state.notes[a][state.sort].toLowerCase()
       let noteBProp = state.notes[b][state.sort].toLowerCase()

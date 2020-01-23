@@ -28,9 +28,6 @@ export default {
   data () {
     return {}
   },
-  getters: {
-    ...mapGetters('editor', ['getCurrentNote'])
-  },
 
   computed: {
     ...mapState('editor', ['currentNote']),

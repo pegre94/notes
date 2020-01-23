@@ -26,6 +26,12 @@ export default {
   },
   methods: {
     ...mapActions('editor', ['setCurrentNote']),
+    onStartup () {
+      let notes = this.notesFilteredAndSorted
+      let idx = Object.keys(notes)[0]
+      let note = notes[idx]
+      this.toEditor(note, idx)
+    },
     toEditor (note, idx) {
       let noteWithIdx = {
         'idx': idx,
@@ -33,7 +39,9 @@ export default {
       }
       this.setCurrentNote(noteWithIdx)
     }
-
+  },
+  mounted () {
+    this.onStartup()
   }
 }
 </script>

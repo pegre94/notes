@@ -42,13 +42,14 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   data () {
     return {
       leftDrawerOpen: false
     }
   },
+
   methods: {
     ...mapActions(['addAndEditNote'])
   },

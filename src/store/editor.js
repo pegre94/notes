@@ -30,7 +30,7 @@ const actions = {
     commit('setEditorContent', value)
   },
   setCurrentNote ({ commit }, value) {
-    commit('editor/setCurrentNote', value)
+    commit('setCurrentNote', value)
   }
 }
 const mutations = {
