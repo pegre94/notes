@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   data () {
     return {}
@@ -36,7 +36,6 @@ export default {
         return this.currentNote.note.name
       },
       set (newValue) {
-        console.log(newValue)
         this.setName(newValue)
       }
     },
@@ -53,7 +52,6 @@ export default {
     ...mapActions('editor', ['setName', 'setEditorContent']),
     ...mapActions('notes', ['updateNote']),
     saveWork () {
-      console.log('saveWork', this.currentNote)
       this.updateNote(this.currentNote)
     }
   }

@@ -17,7 +17,6 @@ const state = {
 
 const getters = {
   getCurrentNote: state => {
-    console.log(state.currentNote)
     return state.currentNote
   }
 }
@@ -29,14 +28,14 @@ const actions = {
   setEditorContent ({ commit }, value) {
     commit('setEditorContent', value)
   },
-  setCurrentNote ({ commit }, value) {
+  setCurrentNote ({ commit, getters }, value) {
     commit('setCurrentNote', value)
   }
 }
 const mutations = {
   setName (state, value) {
     let newNote = Object.assign({}, state.currentNote)
-    console.log('newNote', newNote)
+
     let newValue = value
     newNote.note.name = newValue
     state.currentNote = newNote

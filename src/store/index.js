@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import axios from 'axios'
+
 import notes from './store-notes'
 import editor from './editor'
 
@@ -21,6 +23,7 @@ Vue.filter('stripHtml', function (value) {
   return text
 })
 
+
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
@@ -28,12 +31,46 @@ export default function (/* { ssrContext } */) {
       editor
     },
     actions: {
-      addAndEditNote ({ commit }) {
-        commit('notes/updateNote', editor.state.currentNote)
-        let payload = notes.actions.addNote({ commit })
-        commit('notes/addNote', payload)
-        commit('editor/setCurrentNote', payload)
+      async addAndEditNote ({ commit, dispatch }) {
+        let db_response
+        try {
+          db_response = await this.dispatch('notes/addNoteToDatabase', commit)
+          Promise.resolve(db_response).then((db_response) => {
+            
+            let note = db_response.data
+            let payload = {
+              'idx': note.id,
+              'note': note
+            }
+            
+            this.commit('notes/addNote', payload)
+            this.commit('editor/setCurrentNote', payload)
+        })
+        } catch (ex) {
+          
+        }},
+      
+      deleteNote ({ commit, state, rootGetters }, payload) {
+        let currentNoteId = state.editor.currentNote.idx
+        
+        axios.delete('http://localhost:8000/items/' + payload.idx)
+
+        if (currentNoteId == payload.idx) {
+           
+          let notesKeys = rootGetters['notes/keysFilteredAndSorted']
+          let notes = rootGetters['notes/notes']
+          let id = notesKeys[0]
+          let note = notes[id]
+          let payload = {
+            'idx': id,
+            'note': note
+          }
+          this.commit('editor/setCurrentNote', payload)
+        }
+        commit('notes/deleteNote', payload)
+
       }
+
     },
 
     // enable strict mode (adds overhead!)

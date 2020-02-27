@@ -15,7 +15,7 @@ module.exports = function (ctx) {
     extras: [
       // 'ionicons-v4',
       // 'mdi-v4',
-      // 'fontawesome-v5',
+      'fontawesome-v5',
       // 'eva-icons',
       // 'themify',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
@@ -61,7 +61,7 @@ module.exports = function (ctx) {
       directives: ['Ripple'],
 
       // Quasar plugins
-      plugins: []
+      plugins: ['Dialog']
     },
 
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
@@ -73,7 +73,8 @@ module.exports = function (ctx) {
       vueRouterMode: 'history', // available values: 'hash', 'history'
       showProgress: true,
       gzip: false,
-      analyze: false
+      analyze: false,
+      devtool: 'source-map'
       // Options below are automatically set depending on the env, set them if you want to override
       // preloadChunks: false,
       // extractCSS: false,
