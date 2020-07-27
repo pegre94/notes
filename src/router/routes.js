@@ -7,10 +7,6 @@ const routes = [
       {
         path: '',
         component: () => import('pages/Notes.vue')
-      },
-      {
-        path: 'user',
-        component: () => import('pages/User.vue')
       }
     ]
   }

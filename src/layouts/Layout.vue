@@ -13,7 +13,7 @@
 
         <q-toolbar-title class="absolute-center">Notes</q-toolbar-title>
 
-        <q-btn flat round dense icon="assignment_ind" class="absolute-right q-mr-sm" />
+        <!-- <q-btn flat round dense icon="assignment_ind" class="absolute-right q-mr-sm" /> -->
       </q-toolbar>
     </q-header>
 

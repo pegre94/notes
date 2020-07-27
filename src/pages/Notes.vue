@@ -6,6 +6,7 @@
       v-model="editorContentField"
       min-height="5rem"
       flat
+      :content-style="{'font-size': '1.5em'}"
       :definitions="{
         save: {
           tip: 'Save your work',
@@ -14,10 +15,12 @@
           handler: saveWork
         },
       }"
+      
       :toolbar="[
         ['bold', 'italic', 'strike', 'underline'],
         ['upload', 'save']
       ]"
+     
     />
   </div>
 </template>
@@ -28,7 +31,6 @@ export default {
   data () {
     return {}
   },
-
   computed: {
     ...mapState('editor', ['currentNote']),
     nameField: {

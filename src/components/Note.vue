@@ -7,7 +7,6 @@
           <q-item-label>{{ data.note.name ? data.note.name : 'New note'}}</q-item-label>
           <q-item-label caption lines="3">{{ data.note.content ? data.note.content : 'Text placeholder..'  | stripHtml }}</q-item-label>
         </q-item-section>
-
         <q-item-section side top>
           <template v-if="sortAndOrder.sort == 'creationDate'">
           <q-item-label caption >{{ data.note.creationDate }}</q-item-label>
@@ -17,13 +16,13 @@
           <q-item-label caption >{{ data.note.editionDate }}</q-item-label>
           <small>{{ data.note.editionTime }}</small>
           </template>
-          <q-item-label caption lines="2"><q-btn @click.stop="toDelete(data.idx, i)" flat dense icon="delete" size="sm"  color="grey-7" /></q-item-label>
+          <q-item-label caption lines="2"><q-btn @click.stop="toDelete(data.idx, i)" 
+          flat dense icon="delete" size="sm"  color="grey-7" /></q-item-label>
         </q-item-section>
       </q-item>
       <q-separator spaced inset />
     </div>
   </q-list>
-
   </div>
 </template>
 

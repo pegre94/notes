@@ -50,7 +50,6 @@ const getters = {
           return notes[idx]['editionDate'] + notes[idx]['editionTime']
         default:
           return notes[idx][sort]
-          
       }
     }
     const notes = getters.notes
@@ -69,7 +68,6 @@ const getters = {
   keysFilteredAndSorted: (state, getters) => {
     let notes = getters.notes
     let keysSortedGetter = getters.keysSorted
-
     let keysSorted = [...keysSortedGetter]
     let keysFilteredAndSorted = []
     if (state.search) {
@@ -104,7 +102,7 @@ const actions = {
       return { 'object': responseObject, 'list': responseList }
     }
     axios
-      .get('http://localhost:8000/items/')
+      .get('http://localhost:8000/notes/')
       .then(response => {
         
         let data = preprocessData(response.data)
@@ -127,7 +125,7 @@ const actions = {
       public: false
     }
     
-    let data = await axios.post('http://localhost:8000/items/', note)
+    let data = await axios.post('http://localhost:8000/notes/', note)
     return data
 
   },
@@ -148,7 +146,7 @@ const actions = {
       'note': updatedNote
     }
     commit('updateNote', newPayload)
-    axios.put('http://localhost:8000/items/' + id, updatedNote)
+    axios.put('http://localhost:8000/notes/' + id, updatedNote)
   },
   addNote ({ commit }, note) {
     let payload = {

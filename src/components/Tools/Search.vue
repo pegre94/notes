@@ -4,8 +4,7 @@
     v-model="searchField"
     label="Search"
     class="col q-px-md"
-    @keyup.esc="searchField = ''"
-  >
+    @keyup.esc="searchField = ''">
     <template v-slot:append>
       <q-icon
         v-if="searchField !== ''"

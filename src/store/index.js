@@ -52,11 +52,8 @@ export default function (/* { ssrContext } */) {
       
       deleteNote ({ commit, state, rootGetters }, payload) {
         let currentNoteId = state.editor.currentNote.idx
-        
-        axios.delete('http://localhost:8000/items/' + payload.idx)
-
+        axios.delete('http://localhost:8000/notes/' + payload.idx)
         if (currentNoteId == payload.idx) {
-           
           let notesKeys = rootGetters['notes/keysFilteredAndSorted']
           let notes = rootGetters['notes/notes']
           let id = notesKeys[0]
@@ -68,7 +65,6 @@ export default function (/* { ssrContext } */) {
           this.commit('editor/setCurrentNote', payload)
         }
         commit('notes/deleteNote', payload)
-
       }
 
     },
