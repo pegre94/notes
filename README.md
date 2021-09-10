@@ -1,6 +1,6 @@
 # Notes App (notes)
 
-new way of remebering things
+Vue.js and Quasar clone of Evernote app. 
 
 ## Install the dependencies
 ```bash
